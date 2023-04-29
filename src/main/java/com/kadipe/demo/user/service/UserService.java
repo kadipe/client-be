@@ -38,12 +38,18 @@ public class UserService {
             throw new InvalidPasswordException("Invalid password. Check the correct.");
         }
 
+        saveLogin(timeZone, userEntity);
+
+        return userEntity.getName();
+    }
+
+    private void saveLogin(String timeZone, UserEntity userEntity) {
+
         LoginEntity loginEntity = new LoginEntity();
         loginEntity.setUserEntity(userEntity);
         loginEntity.setTimeZone(timeZone);
         loginEntity.setCreateTS(DateHelp.getGMTFromWorld(timeZone));
         loginRepository.save(loginEntity);
-
-        return userEntity.getName();
     }
+
 }
