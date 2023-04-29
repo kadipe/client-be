@@ -8,6 +8,7 @@ import com.kadipe.demo.user.repository.LoginRepository;
 import com.kadipe.demo.user.repository.UserEntity;
 import com.kadipe.demo.user.repository.UserRepository;
 import com.kadipe.fw.util.DateHelp;
+import com.kadipe.fw.util.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class UserService {
 
         saveLogin(timeZone, userEntity);
 
-        return userEntity.getName();
+        return SecurityUtil.generateJWT(userEntity.getEmail(), userEntity.getId(), "Kadipe :: Client Demo");
     }
 
     private void saveLogin(String timeZone, UserEntity userEntity) {

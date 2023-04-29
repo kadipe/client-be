@@ -14,7 +14,7 @@ public class DateHelp {
     public static LocalDateTime getGMTFromEuropeDublin() {
 
         LocalDateTime dateUE = LocalDateTime.now();
-        ZonedDateTime zonedUE = dateUE.atZone(ZoneId.of("Europe/    Dublin"));
+        ZonedDateTime zonedUE = dateUE.atZone(ZoneId.of("Europe/Dublin"));
 
         return zonedUE.withZoneSameInstant(ZoneId.of("GMT")).toLocalDateTime();
     }
