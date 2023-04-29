@@ -15,11 +15,11 @@ public abstract class MasterEntity {
 
     @Id
     @Column(name = "ID", nullable = false, length = 36)
-    @GenericGenerator(name = "sequenceUUID", strategy = "com.kadipe.fw.KeyGenerator")
+    @GenericGenerator(name = "sequenceUUID", strategy = "com.kadipe.fw.util.KeyGenerator")
     @GeneratedValue(generator = "sequenceUUID")
     private String id;
 
-    @Column(name = "tz", nullable = false)
+    @Column(name = "TZ", nullable = false)
     private String timeZone;
 
     @Column(name = "CREATE_TS", nullable = false)
