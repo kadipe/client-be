@@ -1,5 +1,5 @@
 package com.kadipe.demo.user.model;
 
-public record LoginRecord(
+public record LoginRequestRecord(
         String userName,
         String password) {}

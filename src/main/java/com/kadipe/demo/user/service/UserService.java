@@ -1,6 +1,6 @@
 package com.kadipe.demo.user.service;
 
-import com.kadipe.demo.user.model.LoginRecord;
+import com.kadipe.demo.user.model.LoginRequestRecord;
 import com.kadipe.demo.user.exception.InvalidPasswordException;
 import com.kadipe.demo.user.exception.UserNotFoundException;
 import com.kadipe.demo.user.repository.LoginEntity;
@@ -27,15 +27,15 @@ public class UserService {
     @Autowired
     LoginRepository loginRepository;
 
-    public String makeLogin(LoginRecord loginRecord, String timeZone) throws UserNotFoundException, InvalidPasswordException {
+    public String makeLogin(LoginRequestRecord loginRequestRecord, String timeZone) throws UserNotFoundException, InvalidPasswordException {
 
         UserEntity userEntity;
         try {
-            userEntity = userRepository.findByEmail(loginRecord.userName()).orElseThrow();
+            userEntity = userRepository.findByEmail(loginRequestRecord.userName()).orElseThrow();
         } catch (NoSuchElementException nse) {
             throw new UserNotFoundException("Login invalid, check the email");
         }
-        if (!loginRecord.password().equals(userEntity.getPassword())) {
+        if (!loginRequestRecord.password().equals(userEntity.getPassword())) {
             throw new InvalidPasswordException("Invalid password. Check the correct.");
         }
 

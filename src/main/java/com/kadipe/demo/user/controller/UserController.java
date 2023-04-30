@@ -1,6 +1,7 @@
 package com.kadipe.demo.user.controller;
 
-import com.kadipe.demo.user.model.LoginRecord;
+import com.kadipe.demo.user.model.LoginRequestRecord;
+import com.kadipe.demo.user.model.LoginResponseRecord;
 import com.kadipe.demo.user.service.UserService;
 import com.kadipe.fw.controller.AbstractController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,8 @@ public class UserController extends AbstractController {
     UserService userService;
 
     @PostMapping("${apiprefix.v1}/login")
-    public String makeLogin(@RequestBody LoginRecord loginRecord) {
+    public LoginResponseRecord makeLogin(@RequestBody LoginRequestRecord loginRequestRecord) {
 
-        return userService.makeLogin(loginRecord, timeZoneHolder.getTimeZone());
+        return new LoginResponseRecord(userService.makeLogin(loginRequestRecord, timeZoneHolder.getTimeZone()));
     }
 }
