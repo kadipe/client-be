@@ -22,9 +22,9 @@ public class UserController extends AbstractController {
         return new LoginResponseRecord(userService.makeLogin(loginRequestRecord));
     }
 
-    @PostMapping("${apiprefix.v1}/token.oauth")
+    @PostMapping("${apiprefix.v1}/login.oauth")
     public void generateToken(@RequestBody AuthorizationRequestRecord authorizationRequestRecord) {
 
-        userService.generateToken(authorizationRequestRecord);
+        return new LoginResponseRecord(userService.generateToken(authorizationRequestRecord));
     }
 }
