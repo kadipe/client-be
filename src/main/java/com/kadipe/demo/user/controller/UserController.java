@@ -1,5 +1,6 @@
 package com.kadipe.demo.user.controller;
 
+import com.kadipe.demo.user.model.AuthorizationRequestRecord;
 import com.kadipe.demo.user.model.LoginRequestRecord;
 import com.kadipe.demo.user.model.LoginResponseRecord;
 import com.kadipe.demo.user.service.UserService;
@@ -18,6 +19,12 @@ public class UserController extends AbstractController {
     @PostMapping("${apiprefix.v1}/login")
     public LoginResponseRecord makeLogin(@RequestBody LoginRequestRecord loginRequestRecord) {
 
-        return new LoginResponseRecord(userService.makeLogin(loginRequestRecord, timeZoneHolder.getTimeZone()));
+        return new LoginResponseRecord(userService.makeLogin(loginRequestRecord));
+    }
+
+    @PostMapping("${apiprefix.v1}/token.oauth")
+    public void generateToken(@RequestBody AuthorizationRequestRecord authorizationRequestRecord) {
+
+        userService.generateToken(authorizationRequestRecord);
     }
 }

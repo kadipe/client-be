@@ -1,5 +1,6 @@
 package com.kadipe.demo.user.service;
 
+import com.kadipe.demo.user.model.AuthorizationRequestRecord;
 import com.kadipe.demo.user.model.LoginRequestRecord;
 import com.kadipe.demo.user.exception.InvalidPasswordException;
 import com.kadipe.demo.user.exception.UserNotFoundException;
@@ -7,6 +8,7 @@ import com.kadipe.demo.user.repository.LoginEntity;
 import com.kadipe.demo.user.repository.LoginRepository;
 import com.kadipe.demo.user.repository.UserEntity;
 import com.kadipe.demo.user.repository.UserRepository;
+import com.kadipe.fw.interceptor.TimeZoneHolder;
 import com.kadipe.fw.util.DateHelp;
 import com.kadipe.fw.util.SecurityUtil;
 import org.slf4j.Logger;
@@ -14,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.NoSuchElementException;
 
 @Service
@@ -27,7 +30,10 @@ public class UserService {
     @Autowired
     LoginRepository loginRepository;
 
-    public String makeLogin(LoginRequestRecord loginRequestRecord, String timeZone) throws UserNotFoundException, InvalidPasswordException {
+    @Autowired
+    TimeZoneHolder timeZoneHolder;
+
+    public String makeLogin(LoginRequestRecord loginRequestRecord) throws UserNotFoundException, InvalidPasswordException {
 
         UserEntity userEntity;
         try {
@@ -39,7 +45,7 @@ public class UserService {
             throw new InvalidPasswordException("Invalid password. Check the correct.");
         }
 
-        saveLogin(timeZone, userEntity);
+        saveLogin(timeZoneHolder.getTimeZone(), userEntity);
 
         return SecurityUtil.generateJWT(userEntity.getEmail(), userEntity.getId(), "Kadipe :: Client Demo");
     }
@@ -53,4 +59,13 @@ public class UserService {
         loginRepository.save(loginEntity);
     }
 
+    public void generateToken(AuthorizationRequestRecord authorizationRequestRecord) {
+
+        String clientID = "";
+        String secretKey = "";
+
+        String encodedString = Base64.getEncoder().encodeToString((clientID + ":" + secretKey).getBytes());
+
+        System.out.println(timeZoneHolder.getTimeZone());
+    }
 }

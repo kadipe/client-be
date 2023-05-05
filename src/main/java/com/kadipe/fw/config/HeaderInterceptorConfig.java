@@ -27,4 +27,5 @@ public class HeaderInterceptorConfig implements WebMvcConfigurer {
     @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
     public TimeZoneHolder timeZoneHolder() {
         return new TimeZoneHolder();
-    }}
+    }
+}
