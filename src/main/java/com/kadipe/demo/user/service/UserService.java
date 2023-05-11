@@ -94,4 +94,11 @@ public class UserService {
 
         return this.makeLoginOAuth(userInfoRecord);
     }
+
+    public void updateUser(PersonalInfoRecord personalInfoRecord) {
+
+        UserEntity userEntity = userRepository.findByKadipeKey(personalInfoRecord.id()).orElseThrow();
+        userEntity.setName(personalInfoRecord.name());
+        userRepository.save(userEntity);
+    }
 }
