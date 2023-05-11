@@ -6,10 +6,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EntityScan(basePackages = "com.kadipe")
@@ -17,16 +15,12 @@ import org.springframework.web.client.RestTemplate;
 @ServletComponentScan(basePackages = "com.kadipe")
 @EnableScheduling
 @EnableCaching
+@EnableFeignClients
 public class Application {
 
     public static void main(String[] args) {
 
         SpringApplication.run(Application.class, args);
-    }
-
-    @Bean
-    public RestTemplate getRestTemplate() {
-        return new RestTemplate();
     }
 
 }
