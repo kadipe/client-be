@@ -5,5 +5,4 @@ public record AddressRecord(
         String address,
         String number,
         String complement,
-        String postalCode
-) {}
+        String postalCode) {}

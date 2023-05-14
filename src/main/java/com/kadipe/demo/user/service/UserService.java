@@ -1,6 +1,6 @@
 package com.kadipe.demo.user.service;
 
-import com.kadipe.demo.user.client.WSKadipeClient;
+import com.kadipe.demo.user.client.WSKadipeOAuthClient;
 import com.kadipe.demo.user.exception.InvalidPasswordException;
 import com.kadipe.demo.user.exception.UserNotFoundException;
 import com.kadipe.demo.user.model.*;
@@ -35,7 +35,7 @@ public class UserService {
     TimeZoneHolder timeZoneHolder;
 
     @Autowired
-    WSKadipeClient wsKadipeClient;
+    WSKadipeOAuthClient wsKadipeOAuthClient;
 
     public String makeLogin(LoginRequestRecord loginRequestRecord) throws UserNotFoundException, InvalidPasswordException {
 
@@ -88,9 +88,9 @@ public class UserService {
         String secretKey = "0a4dcf173c03a9e3f6a68c8695059f6e63a72d8fdeb6eeda5493171790692c04";
         String encodedString = Base64.getEncoder().encodeToString((clientID + ":" + secretKey).getBytes());
 
-        TokenOAuthRecord tokenOAuthRecord = wsKadipeClient.callTokenOAuth("Basic " + encodedString, new TokenRequest(authorizationRequestRecord.code(), "http://localhost:2001/login.oauth"));
+        TokenOAuthRecord tokenOAuthRecord = wsKadipeOAuthClient.callTokenOAuth("Basic " + encodedString, new TokenRequest(authorizationRequestRecord.code(), "http://localhost:2001/login.oauth"));
 
-        UserInfoRecord userInfoRecord = wsKadipeClient.callUserInfo("Bearer " + tokenOAuthRecord.accessToken());
+        UserInfoRecord userInfoRecord = wsKadipeOAuthClient.callUserInfo("Bearer " + tokenOAuthRecord.accessToken());
 
         return this.makeLoginOAuth(userInfoRecord);
     }
