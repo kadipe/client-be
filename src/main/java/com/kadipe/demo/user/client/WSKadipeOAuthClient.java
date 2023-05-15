@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
-@FeignClient(name = "kadipeClient", url = "http://localhost:5000/oauth")
+@FeignClient(name = "kadipeOAuthClient", url = "http://localhost:5000/oauth")
 public interface WSKadipeOAuthClient {
 
     @PostMapping(value = "/api/v1/token.oauth")

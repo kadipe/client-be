@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
-@FeignClient(name = "kadipeClient", url = "http://localhost:5000/checkin")
+@FeignClient(name = "kadipeCheckinClient", url = "http://localhost:5000/checkin")
 public interface WSKadipeCheckinClient {
 
     @PostMapping(value = "/api/v1/user.info")
