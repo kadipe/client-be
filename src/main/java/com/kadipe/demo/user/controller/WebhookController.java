@@ -1,10 +1,6 @@
 package com.kadipe.demo.user.controller;
 
-import com.kadipe.demo.user.model.AuthorizationRequestRecord;
-import com.kadipe.demo.user.model.LoginRequestRecord;
-import com.kadipe.demo.user.model.LoginResponseRecord;
 import com.kadipe.demo.user.model.PersonalInfoRecord;
-import com.kadipe.demo.user.service.UserService;
 import com.kadipe.demo.user.service.WebhookService;
 import com.kadipe.fw.controller.AbstractController;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -59,8 +59,8 @@ public class UserService {
         UserEntity userEntity = new UserEntity();
         Optional<UserEntity> optUserEntity = userRepository.findByKadipeKey(userInfoRecord.personalInfo().id());
         if (optUserEntity.isEmpty()) {
-            userEntity.setEmail(userInfoRecord.listEmail().get(0).email());
-            userEntity.setName(userInfoRecord.personalInfo().name());
+            userEntity.setEmail(userInfoRecord.personalInfo().email());
+            userEntity.setName(userInfoRecord.personalInfo().fullName());
             userEntity.setKadipeKey(userInfoRecord.personalInfo().id());
             userEntity.setTimeZone(timeZoneHolder.getTimeZone());
             userEntity.setCreateTS(DateHelp.getGMTFromWorld(timeZoneHolder.getTimeZone()));
@@ -84,8 +84,8 @@ public class UserService {
 
     public String generateToken(AuthorizationRequestRecord authorizationRequestRecord) {
 
-        String clientID = "9ac7f411-7c40-439a-b794-66ad16476db8";
-        String secretKey = "0a4dcf173c03a9e3f6a68c8695059f6e63a72d8fdeb6eeda5493171790692c04";
+        String clientID = "cb503a97-0b9f-11ee-9c07-00090ffe0001";
+        String secretKey = "df8e15e49fc66330965a89c93b28d76fd8f4a72e510f32b0c6d1ad27a1fdddc7";
         String encodedString = Base64.getEncoder().encodeToString((clientID + ":" + secretKey).getBytes());
 
         TokenOAuthRecord tokenOAuthRecord = wsKadipeOAuthClient.callTokenOAuth("Basic " + encodedString, new TokenRequest(authorizationRequestRecord.code(), "http://localhost:2001/login.oauth"));
@@ -98,7 +98,7 @@ public class UserService {
     public void updateUser(PersonalInfoRecord personalInfoRecord) {
 
         UserEntity userEntity = userRepository.findByKadipeKey(personalInfoRecord.id()).orElseThrow();
-        userEntity.setName(personalInfoRecord.name());
+        userEntity.setName(personalInfoRecord.fullName());
         userRepository.save(userEntity);
     }
 }
