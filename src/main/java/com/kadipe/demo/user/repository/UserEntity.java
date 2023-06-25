@@ -2,6 +2,8 @@ package com.kadipe.demo.user.repository;
 
 import com.kadipe.common.MasterEntity;
 import jakarta.persistence.*;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.Collection;
 
@@ -9,7 +11,7 @@ import java.util.Collection;
 @Table(name = "DEMO_USER")
 public class UserEntity extends MasterEntity {
 
-    @Column(name = "EMAIL",nullable = false)
+    @Column(name = "EMAIL", nullable = false)
     private String email;
 
     @Column(name = "PASSWORD", nullable = false)
@@ -62,5 +64,19 @@ public class UserEntity extends MasterEntity {
 
     public void setLoginEntities(Collection<LoginEntity> loginEntities) {
         this.loginEntities = loginEntities;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        return new EqualsBuilder().appendSuper(super.equals(o)).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37).appendSuper(super.hashCode()).toHashCode();
     }
 }
